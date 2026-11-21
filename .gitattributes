@@ -1,0 +1,35 @@
+# ============================================================
+#  行尾（换行符）统一规则
+# ============================================================
+# 为什么需要这个文件：
+#   不加的话，行尾会跟着每个人本地的 core.autocrlf 设置走 ——
+#   Windows 上检出成 CRLF、Linux 上检出成 LF，同一个人克隆两次
+#   都可能不一样，diff 里全是「整文件都改了」的噪音。
+#
+#   更严重的是 Windows 批处理：.bat 用 LF 时 cmd.exe 可能解析异常
+#   （尤其是带 goto/label 的脚本）。所以 .bat 必须强制 CRLF。
+
+# 默认：源码和文档在仓库里统一存 LF，检出时也保持 LF
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF —— 不论谁在什么系统上检出
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件：不要做任何行尾转换
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.bmp  binary
+*.exe  binary
+*.dll  binary
+*.pyd  binary
+*.zip  binary
+*.7z   binary
+*.woff binary
+*.woff2 binary
+
+# 让 GitHub 认出语言构成，不算进「其他」
+*.py   linguist-language=Python
